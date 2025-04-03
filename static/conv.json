@@ -1,0 +1,60 @@
+{
+    "gender":{
+        "0":"Male",
+        "1":"Female"
+    },
+    "program":{
+        "0":"UG",
+        "1":"PG"
+    },
+    "department":{
+        "0":"CSE",
+        "1":"MNC",
+        "2":"EE",
+        "3":"ME",
+        "4":"CHE",
+        "5":"MATH",
+        "6":"PHY",
+        "7":"ECO"
+    },
+    "year":{
+        "1":"First Year",    
+        "2":"Second Year",
+        "3":"Third Year",
+        "4":"Fourth Year",
+        "5":"Fifth Year",
+        "6":"Sixth Year",
+        "7":"Seventh Year",
+        "8":"Eighth Year"
+    },
+    "role":{
+        "0":"Student",
+        "1":"Commisoner",
+        "2":"Faculty Advisor"
+    },
+    "is_approved":{
+        "0":"Declined",
+        "1":"On going",
+        "2":"Approved"
+    },
+    "booth_phase":{
+        "0":"Apply for candidature",
+        "1":"Verifying applications",
+        "2":"Withdrawal open for selected candidates",
+        "3":"Campaigning",
+        "4":"Voting",
+        "5":"Result declaration"
+    },
+    "phase_change_message":{
+        "1":"Application for candidature has been closed. If you have applied for the post you will be notified after your application reviwed.",
+        "2":"All the application are verfied. you can now see the approved candidates on the respective booths. If you have appilied for the post and your application was approved than you can now withdraw your application if you want.",
+        "3":"Withdrawal period is over now. Still you can see the approved candidates and there manifesto's.",
+        "4":"Voting has begun. Go ahead and cast your vote. Every vote matters.",
+        "5":"Voting has been ended. Now the results will be declared soon."
+    },
+    "allowed":{
+        "0":"Male",
+        "1":"Female",
+        "2":"Both"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "CREATE_POST":[1,2],
+    "CREATE_BOOTH":[1],
+    "APPLY_CANDIDATURE":[0],
+    "PHASE_CHANGE":[1,2],
+    "GET_POSTS":[1,2],
+    "DELETE_POST":[1,2],
+    "GET_BOOTHS":[0,1,2],
+    "REVIEW_BOOTHS":[1,2],
+    "GET_CANDIDATE_APPLICATIONS":[1,2],
+    "WITHDRAW_APPLICATIONS":[0],
+    "GET_CANDIDATES":[0,1,2],
+    "VOTE":[0,1],
+    "PROCESS_RESULT":[1,2],
+    "GET_RESULT":[0,1,2],
+    "GET_USER_DETAILS":[2],
+    "CHANGE_ROLE":[2],
+    "ROLES_CHANGE_AVAILABLE":[0,1],
+    "ADD_MACHINE":[2]
+}

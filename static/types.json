@@ -1,0 +1,22 @@
+{
+    "roll_no":"string",
+    "password":"string",
+    "post_name": "string",
+    "post_category": "string",
+    "voters":"object",
+    "candidates":"object",
+    "post_id":"number",
+    "profile_pic":"object",
+    "manifesto":"object",
+    "booth_id":"number",
+    "candidate_id":"number",
+    "action":"number",
+    "allowed":"number",
+    "booths_ids":"object",
+    "role":"number",
+    "ip":"string",
+    "machine_name":"string",
+    "machine_id":"number",
+    "ticket":"string",
+    "candidate_name":"string"
+}
