@@ -1,7 +1,7 @@
 const express = require("express");
 const authRouter = express.Router();
 const lang = require("../../lang/lang.json");
-const { getVerifcation, checkPreviousVotes } = require("../modules/auth");
+const { getVerifcation, checkPreviousVotes, checkIp } = require("../modules/auth");
 const jwt = require("jsonwebtoken");
 const getTime = require("../utils/functions/getTimeString");
 const hasher = require("../utils/middlewares/hasher");
@@ -21,31 +21,41 @@ authRouter.post("/login",async (req, res) => {
             data: {}
         }))
     }else{
-        const findUserFlag = await getVerifcation(body.ticket,body.roll_no);
-        if (findUserFlag.length==0){
+        const checkIpResponse = await checkIp(req.ip);
+        if (checkIpResponse.flag==0){
             res.status(400).send(hasher({
                 code: 400,
-                message: lang.INVALID_TICKET,
+                message: lang.NOT_AT_BOOTH,
                 error: true,
                 data: {}
             }))
         }else{
-            const checkPreviousVote = await checkPreviousVotes(findUserFlag[0].user_id);
-            if (checkPreviousVote.flag>0){
+            const findUserFlag = await getVerifcation(body.ticket,body.roll_no);
+            if (findUserFlag.length==0){
                 res.status(400).send(hasher({
                     code: 400,
-                    message: lang.ALREADY_VOTED,
+                    message: lang.INVALID_TICKET,
                     error: true,
                     data: {}
                 }))
             }else{
-                const token = jwt.sign({user_id:findUserFlag[0].user_id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"});
-                res.status(200).send(hasher({
-                    code: 200,
-                    message: "Login successful.",
-                    error: false,
-                    data: {token: btoa(token)}
-                }))
+                const checkPreviousVote = await checkPreviousVotes(findUserFlag[0].user_id);
+                if (checkPreviousVote.flag>0){
+                    res.status(400).send(hasher({
+                        code: 400,
+                        message: lang.ALREADY_VOTED,
+                        error: true,
+                        data: {}
+                    }))
+                }else{
+                    const token = jwt.sign({user_id:findUserFlag[0].user_id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"});
+                    res.status(200).send(hasher({
+                        code: 200,
+                        message: "Login successful.",
+                        error: false,
+                        data: {token: btoa(token)}
+                    }))
+                }
             }
         }
     }

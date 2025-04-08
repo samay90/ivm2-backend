@@ -35,7 +35,7 @@ votingRouter.post("/vote",userVerifier,async(req,res)=>{
     const user = req.user;
     const body = req.body;
     const flagType = voteForm(body.form);
-    if (!flagType) {
+    if (!flagType || body.form.length==0) {
         res.status(400).send(hasher({
             code: 400,
             message: lang.UNAUTHORISED_ACCESS,

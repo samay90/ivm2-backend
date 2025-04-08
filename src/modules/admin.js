@@ -202,7 +202,7 @@ const deleteMachine = (machine_id) => {
 }
 const getTicket = (roll_no) => {
     return new Promise((resolve, reject) => {
-        const q = `select ticket from users where roll_no=?;`;
+        const q = `select * from users where roll_no=?;`;
         db.query(q,[roll_no], (err, result) => {
             if (err) {
                 reject(err);
@@ -223,15 +223,30 @@ const getResult = () =>{
     COALESCE(c.profile, null) AS profile,
     COUNT(v.vote_id) AS total_votes
 FROM (
-    SELECT post_id, candidate_id, candidate_name, profile FROM candidates
+    SELECT 
+        post_id, candidate_id, candidate_name, profile 
+    FROM candidates
+
     UNION ALL
-    SELECT DISTINCT post_id, -1 AS candidate_id, 'NOTA' AS candidate_name, null AS profile FROM votes WHERE candidate_id = -1
+
+    -- Generate a NOTA row for each post
+    SELECT 
+        p.post_id, 
+        -1 AS candidate_id, 
+        'NOTA' AS candidate_name, 
+        null AS profile
+    FROM posts p
 ) c
 JOIN posts p ON c.post_id = p.post_id
 LEFT JOIN votes v ON c.post_id = v.post_id AND c.candidate_id = v.candidate_id
-GROUP BY p.post_id, p.post_name, p.post_category, c.candidate_id, c.candidate_name, c.profile
-ORDER BY total_votes DESC
-;
+GROUP BY 
+    p.post_id, 
+    p.post_name, 
+    p.post_category, 
+    c.candidate_id, 
+    c.candidate_name, 
+    c.profile
+ORDER BY total_votes DESC;
 `;
         db.query(q,(err,result)=>{
             if (err){
@@ -255,4 +270,16 @@ const getVotes = () =>{
         })
     })
 }
-module.exports = {getVotes,getResult,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};
+const getLessPosts = () => {
+    return new Promise((resolve, reject) => {
+        const q = `select post_id,post_name from posts ;`;
+        db.query(q, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+module.exports = {getVotes,getResult,getLessPosts,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};

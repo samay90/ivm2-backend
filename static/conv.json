@@ -5,17 +5,21 @@
     },
     "program":{
         "0":"UG",
-        "1":"PG"
+        "1":"M-TECH",
+        "2":"PHD"
     },
     "department":{
-        "0":"CSE",
-        "1":"MNC",
-        "2":"EE",
-        "3":"ME",
-        "4":"CHE",
-        "5":"MATH",
-        "6":"PHY",
-        "7":"ECO"
+        "0":"Computer Science and Engineering",
+        "1":"Mathematics and Computing",
+        "2":"Electrical Engineering",
+        "3":"Mechanical Engineering",
+        "4":"Chemistry",
+        "5":"Mathematics",
+        "6":"Physics",
+        "7":"Economics",
+        "8":"Chemical Engineering",
+        "9":"Chemical and Meterial Engineering",
+        "10":"Humanities and Social Sciences" 
     },
     "year":{
         "1":"First Year",    

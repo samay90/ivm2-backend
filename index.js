@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/",(req,res,next)=>{setTimeout(()=>{next()},1000)},dehasher,typeChecker,sizeChecker,router);
+app.use("/",(req,res,next)=>{setTimeout(() => {
+    next()
+}, 1000);},dehasher,typeChecker,sizeChecker,router);
 
 app.listen(process.env.PORT, process.env.IP);

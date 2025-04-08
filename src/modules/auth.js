@@ -38,4 +38,16 @@ const getUserDetails = (user_id) =>{
         })
     })
 }
-module.exports = {getVerifcation,checkPreviousVotes,getUserDetails}
+const checkIp = (ip) =>{
+    return new Promise((resolve,reject)=>{
+        const q =  `select count(*) as flag from machines where ip=?;`;
+        db.query(q,[ip],(err,result)=>{
+            if (err){
+                reject(err);
+            }else{
+                resolve(result[0]);
+            }
+        })
+    })
+}
+module.exports = {getVerifcation,checkIp,checkPreviousVotes,getUserDetails}

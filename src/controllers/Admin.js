@@ -3,7 +3,7 @@ const adminRouter = express.Router();
 const lang = require("../../lang/lang.json");
 const hasher = require("../utils/middlewares/hasher");
 const rules = require("../../static/rules.json");
-const { getUser, updateTickets, getPosts, createPost, checkPostExistience, deletePost, getCandidates, createCandidate, deleteCandidate, getMachines, createMachine, deleteMachine, createAdmin, getTicket, getResult, getVotes } = require("../modules/admin");
+const { getUser, updateTickets, getPosts, createPost, checkPostExistience, deletePost, getCandidates, createCandidate, deleteCandidate, getMachines, createMachine, deleteMachine, createAdmin, getTicket, getResult, getVotes, getLessPosts } = require("../modules/admin");
 const checker = require("../utils/functions/checker");
 const voters_candidates = require("../utils/functions/typecheckers/voters_candidates");
 const getTime = require("../utils/functions/getTimeString");
@@ -266,7 +266,6 @@ adminRouter.post("/candidate/new",async (req,res)=>{
                 data: {}
             }))
         }else{
-            console.log(req.files.profile)
             if (!(req.files.profile.mimetype == "image/jpeg" || req.files.profile.mimetype == "image/png" || req.files.profile.mimetype == "image/jpg") || req.files.profile.size > 10**6){
                 res.status(400).send(hasher({
                     code: 400,
@@ -507,5 +506,31 @@ adminRouter.get("/votes/csv",async (req,res)=>{
             data: {}
         }))
     }
+})
+adminRouter.get("/posts/less",async (req,res)=>{
+    const getLessPostsResponse = await getLessPosts();
+    if (getLessPostsResponse){
+        res.status(200).send(hasher({
+            code: 200,
+            message: "Less posts fetched successfully.",
+            error: false,
+            data: getLessPostsResponse
+        }))
+    }else{
+        res.status(400).send(hasher({
+            code: 400,
+            message: lang.SOMETHING_WENT_WORNG,
+            error: true,
+            data: {}
+        }))
+    }
+})
+adminRouter.get("/token-check",async (req,res)=>{
+    res.status(200).send(hasher({
+        code: 200,  
+        message: "Token is valid.",
+        error: false,
+        data: {}
+    }))
 })
 module.exports = adminRouter;
