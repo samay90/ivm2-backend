@@ -13,7 +13,9 @@ const voteChecker =async (req, res, next) => {
             data: {}
         }))
     }else{
-        const checkIPResponse = await checkIP(req.ip);
+        const raw_ip = (req.ip).split("ffff:");
+    	const parsedIp = raw_ip[raw_ip.length-1];
+        const checkIPResponse = await checkIP(parsedIp);
         if (checkIPResponse.flag==0){
             res.status(400).send(hasher({
                 code: 400,

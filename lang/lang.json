@@ -36,5 +36,6 @@
     "ADMIN_ALREADY_EXIST":"Admin already exists.",
     "POST_USED":"Cannot delete post. Because it is used somewhere.",
     "NO_SUCH_POST":"No such post exists.",
-    "INVALID_PROFILE":"Profile image should be less than 1MB."
+    "INVALID_PROFILE":"Profile image should be less than 1MB.",
+    "VULNERABLE":"Vulnerable query found."
 }

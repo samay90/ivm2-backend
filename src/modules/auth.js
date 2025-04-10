@@ -9,6 +9,7 @@ const getVerifcation = (ticket,roll_no) =>{
             if (err){
                 reject(err);
             }else{
+                console.log(result)
                 resolve(result);
             }
         })

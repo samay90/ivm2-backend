@@ -282,4 +282,48 @@ const getLessPosts = () => {
         });
     });
 }
-module.exports = {getVotes,getResult,getLessPosts,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};
+const getAdmins = () => {
+    return new Promise((resolve, reject) => {
+        const q = `select admin_id,email from admins;`;
+        db.query(q, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+const deleteAdmin = (admin_id) => {
+    return new Promise((resolve, reject) => {
+        const q = `delete from admins where admin_id=?;`;
+        db.query(q,[admin_id], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+const conv = require("../../static/conv.json");
+const getUsersVotingData = () => {
+    return new Promise((resolve, reject) => {
+        const q = `select name,ticket,year,department,roll_no,program,gender,user_id as token_no from users ORDER BY program,year,department,roll_no;`;
+        db.query(q, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                for (let i of result) {
+                    i.department=conv.department[i.department];
+                    i.program=conv.program[i.program];
+                    i.gender=conv.gender[i.gender];
+                    i.year=conv.year[i.year];
+                }
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {getVotes,getAdmins,getUsersVotingData,deleteAdmin,getResult,getLessPosts,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};

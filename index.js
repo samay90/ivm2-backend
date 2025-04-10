@@ -11,13 +11,12 @@ const dehasher = require("./src/utils/middlewares/dehasher");
 
 dotEnv.config();
 
-app.use(expressFileUpload({ useTempFiles: true , tempFileDir: "ivm/tmp/"}));
+app.use(expressFileUpload({ createParentPath: true }));
 app.use(cors());
+app.use(express.static(__dirname+"/profile"))
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/",(req,res,next)=>{setTimeout(() => {
-    next()
-}, 1000);},dehasher,typeChecker,sizeChecker,router);
+app.use("/",dehasher,typeChecker,sizeChecker,router);
 
 app.listen(process.env.PORT, process.env.IP);
