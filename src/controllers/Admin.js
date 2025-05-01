@@ -3,7 +3,7 @@ const adminRouter = express.Router();
 const lang = require("../../lang/lang.json");
 const hasher = require("../utils/middlewares/hasher");
 const rules = require("../../static/rules.json");
-const { getUser, updateTickets, getPosts, createPost, checkPostExistience, deletePost, getCandidates, createCandidate, deleteCandidate, getMachines, createMachine, deleteMachine, createAdmin, getTicket, getResult, getVotes, getLessPosts, getAdmins, deleteAdmin, getUsersVotingData } = require("../modules/admin");
+const { getUser, updateTickets, getPosts, createPost, checkPostExistience, deletePost, getCandidates, createCandidate, deleteCandidate, getMachines, createMachine, deleteMachine, createAdmin, getTicket, getResult, getVotes, getLessPosts, getAdmins, deleteAdmin, getUsersVotingData, getTokens } = require("../modules/admin");
 const checker = require("../utils/functions/checker");
 const voters_candidates = require("../utils/functions/typecheckers/voters_candidates");
 const getTime = require("../utils/functions/getTimeString");
@@ -735,7 +735,7 @@ ${
     });
 })
 adminRouter.get("/tokens",async (req,res)=>{
-    const getUsersData  = await getUsersVotingData();
+    const getUsersData  = await getTokens();
     res.status(200).send(hasher({
         code: 200,
         message: "Tokens fetched successfully.",

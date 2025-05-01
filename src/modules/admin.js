@@ -325,5 +325,22 @@ const getUsersVotingData = () => {
         });
     });
 }
-
-module.exports = {getVotes,getAdmins,getUsersVotingData,deleteAdmin,getResult,getLessPosts,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};
+const getTokens = () =>{
+    return new Promise((resolve,reject)=>{
+        const q = `select user_id as token_no,name,year,department,roll_no,program,gender from users ORDER BY program,year,department,roll_no;`;
+        db.query(q,(err,result)=>{
+            if (err){
+                reject(err);
+            }else{
+                for (let i of result) {
+                    i.department=conv.department[i.department];
+                    i.program=conv.program[i.program];
+                    i.gender=conv.gender[i.gender];
+                    i.year=conv.year[i.year];
+                }
+                resolve(result);
+            }
+        })
+    })
+}
+module.exports = {getVotes,getAdmins,getTokens,getUsersVotingData,deleteAdmin,getResult,getLessPosts,updateTickets,getTicket,deleteMachine,createMachine,deleteCandidate,getMachines,checkPost,createCandidate,getCandidates,checkPostExistience,createPost,deletePost,getAdminDetails,getPosts,getUser,createAdmin,findUser};
